@@ -64,6 +64,7 @@
     <git.commit.plugin.version>2.2.5</git.commit.plugin.version>
     <spring-boot.version>2.3.1.RELEASE</spring-boot.version>
     <hutool.version>5.3.1</hutool.version>
+    <escpos-coffee.version>4.0.1</escpos-coffee.version>
   </properties>
 
   <dependencies>
@@ -84,7 +85,7 @@
   </dependencies>
 
   <modules>
-    <module>examples</module>
+    <!--<module>examples</module>-->
     <module>esc-pos</module>
   </modules>
 
@@ -96,6 +97,11 @@
         <version>${spring-boot.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.github.anastaciocintra</groupId>
+        <artifactId>escpos-coffee</artifactId>
+        <version>${escpos-coffee.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
