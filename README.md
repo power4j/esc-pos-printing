@@ -33,8 +33,8 @@ String hexCmd = CmdEncoder.encodeHex(doc);
 - 颜色模式(`Color`)：白底黑字，黑底白字
 - 字体(`FontType`): 可选择打印机内置字体
 - 字号(`FontSize`): 可选择打印机内置字号
-- 下划线(`Color`): 无、1点粗、2点粗
-- 加粗(`Color`): 是否加粗
+- 下划线(`Underline`): 无、1点粗、2点粗
+- 加粗: 是否加粗
 
 ### 二维码
 
