@@ -23,5 +23,8 @@ public class TextOpt extends Opt implements Serializable {
 	private FontSize fontWidth = FontSize.SIZE_1;
 	private FontSize fontHeight = FontSize.SIZE_1;
 	private Underline underline = Underline.NONE;
+	/**
+	 * null means use default value
+	 */
 	private Integer lineSpacing;
 }

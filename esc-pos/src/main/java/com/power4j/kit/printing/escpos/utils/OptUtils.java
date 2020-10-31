@@ -1,11 +1,16 @@
 package com.power4j.kit.printing.escpos.utils;
 
 import com.power4j.kit.printing.escpos.options.Opt;
+import com.power4j.kit.printing.escpos.options.QrCodeOpt;
 import com.power4j.kit.printing.escpos.options.TextOpt;
+import com.power4j.kit.printing.escpos.qrcode.QrEccLevel;
+import com.power4j.kit.printing.escpos.qrcode.QrModel;
 import com.power4j.kit.printing.escpos.style.*;
 import lombok.experimental.UtilityClass;
 
 import java.util.Map;
+
+import static com.power4j.kit.printing.escpos.constants.Keys.*;
 
 /**
  * @author CJ (power4j@outlook.com)
@@ -14,15 +19,6 @@ import java.util.Map;
  */
 @UtilityClass
 public class OptUtils {
-	public static final String KEY_ALIGN = "align";
-	public static final String KEY_COLOR = "color";
-	public static final String KEY_BOLD = "bold";
-	public static final String KEY_FONT_TYPE = "fontType";
-	public static final String KEY_FONT_WIDTH = "fontWidth";
-	public static final String KEY_FONT_HEIGHT = "fontHeight";
-	public static final String KEY_UNDERLINE = "underline";
-	public static final String KEY_LINE_SPACING = "lineSpacing";
-
 
 	/**
 	 * exact opt
@@ -38,6 +34,11 @@ public class OptUtils {
 		return opt;
 	}
 
+	/**
+	 * extract text opt
+	 * @param map
+	 * @return
+	 */
 	public TextOpt getTextOpt(Map<String, String> map) {
 		TextOpt opt = new TextOpt();
 		if(map == null){
@@ -51,7 +52,53 @@ public class OptUtils {
 			Color color = Color.parseOrDefault(map.get(KEY_COLOR),Color.BG_WHITE);
 			opt.setColor(color);
 		}
-		// TODO : MORE ...
+		if(map.containsKey(KEY_BOLD)){
+			opt.setBold(Boolean.valueOf(map.get(KEY_BOLD)));
+		}
+		if(map.containsKey(KEY_FONT_TYPE)){
+			FontType fontType = FontType.parseOrDefault(map.get(KEY_FONT_TYPE),FontType.FONT_A);
+			opt.setFontType(fontType);
+		}
+		if(map.containsKey(KEY_FONT_WIDTH)){
+			FontSize fontSize = FontSize.parseOrDefault(map.get(KEY_FONT_WIDTH),FontSize.SIZE_1);
+			opt.setFontWidth(fontSize);
+		}
+		if(map.containsKey(KEY_FONT_HEIGHT)){
+			FontSize fontSize = FontSize.parseOrDefault(map.get(KEY_FONT_HEIGHT),FontSize.SIZE_1);
+			opt.setFontHeight(fontSize);
+		}
+		if(map.containsKey(KEY_UNDERLINE)){
+			Underline underline = Underline.parseOrDefault(map.get(KEY_UNDERLINE),Underline.NONE);
+			opt.setUnderline(underline);
+		}
+		if(map.containsKey(KEY_LINE_SPACING)){
+			opt.setLineSpacing(Integer.parseInt(map.get(KEY_LINE_SPACING)));
+		}
 		return opt;
+	}
+
+	/**
+	 * extract QrCodeOpt
+	 * @param map
+	 * @return
+	 */
+	public QrCodeOpt getQrCodeOpt(Map<String, String> map){
+		QrCodeOpt qrCodeOpt = new QrCodeOpt();
+		if(map != null &&  map.containsKey(KEY_ALIGN)){
+			Alignment alignment = Alignment.parseOrDefault(map.get(KEY_ALIGN),Alignment.LEFT);
+			qrCodeOpt.setAlign(alignment);
+		}
+		if(map.containsKey(KEY_QR_MODEL)){
+			QrModel qrModel = QrModel.parseOrDefault(map.get(KEY_QR_MODEL),QrModel.MODEL_48);
+			qrCodeOpt.setModel(qrModel);
+		}
+		if(map.containsKey(KEY_QR_ECC_LEVEL)){
+			QrEccLevel qrEccLevel = QrEccLevel.parseOrDefault(map.get(KEY_QR_ECC_LEVEL),QrEccLevel.ECC_M);
+			qrCodeOpt.setLevel(qrEccLevel);
+		}
+		if(map.containsKey(KEY_QR_SIZE)){
+			qrCodeOpt.setSize(Integer.parseInt(map.get(KEY_QR_SIZE)));
+		}
+		return qrCodeOpt;
 	}
 }

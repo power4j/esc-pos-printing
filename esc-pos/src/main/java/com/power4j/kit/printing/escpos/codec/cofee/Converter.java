@@ -1,7 +1,12 @@
 package com.power4j.kit.printing.escpos.codec.cofee;
 
+import com.github.anastaciocintra.escpos.EscPos;
 import com.github.anastaciocintra.escpos.EscPosConst;
 import com.github.anastaciocintra.escpos.Style;
+import com.github.anastaciocintra.escpos.barcode.QRCode;
+import com.power4j.kit.printing.escpos.cmd.Cut;
+import com.power4j.kit.printing.escpos.qrcode.QrEccLevel;
+import com.power4j.kit.printing.escpos.qrcode.QrModel;
 import com.power4j.kit.printing.escpos.style.*;
 import lombok.experimental.UtilityClass;
 
@@ -21,6 +26,9 @@ public class Converter {
 	 * @return
 	 */
 	public Optional<EscPosConst.Justification> toJustification(Alignment alignment) {
+		if(alignment == null){
+			return Optional.empty();
+		}
 		switch (alignment){
 			case LEFT:
 				return Optional.of(EscPosConst.Justification.Left_Default);
@@ -39,6 +47,9 @@ public class Converter {
 	 * @return
 	 */
 	public Optional<Style.Underline> toUnderline(Underline underline){
+		if(underline == null){
+			return Optional.empty();
+		}
 		switch (underline){
 			case NONE:
 				return Optional.of(Style.Underline.None_Default);
@@ -57,6 +68,9 @@ public class Converter {
 	 * @return
 	 */
 	public Optional<Style.FontName> toFontName(FontType fontType) {
+		if(fontType == null){
+			return Optional.empty();
+		}
 		switch (fontType){
 			case FONT_A:
 				return Optional.of(Style.FontName.Font_A_Default);
@@ -76,6 +90,9 @@ public class Converter {
 	 * @return
 	 */
 	public Optional<Style.FontSize> toFontSize(FontSize fontSize){
+		if(fontSize == null){
+			return Optional.empty();
+		}
 		switch (fontSize){
 			case SIZE_1:
 				return Optional.of(Style.FontSize._1);
@@ -104,6 +121,9 @@ public class Converter {
 	 * @return
 	 */
 	public Optional<Style.ColorMode> toColorMode(Color color){
+		if(color == null){
+			return Optional.empty();
+		}
 		switch (color){
 			case BG_WHITE:
 				return Optional.of(Style.ColorMode.BlackOnWhite_Default);
@@ -113,4 +133,57 @@ public class Converter {
 				return Optional.empty();
 		}
 	}
+
+
+	/**
+	 * CutMode convert
+	 * @param cut
+	 * @return
+	 */
+	public EscPos.CutMode toCutMode(Cut cut){
+		return (cut != null && cut.isFullMode()) ? EscPos.CutMode.FULL : EscPos.CutMode.PART;
+	}
+
+	/**
+	 * QRModel convert
+	 * @param qrModel
+	 * @return
+	 */
+	public Optional<QRCode.QRModel> toQRModel(QrModel qrModel){
+		if(qrModel == null){
+			Optional.empty();
+		}
+		switch (qrModel){
+			case MODEL_48:
+				return Optional.of(QRCode.QRModel._1_Default);
+			case MODEL_49:
+				return Optional.of(QRCode.QRModel._2);
+			default:
+				return Optional.empty();
+		}
+	}
+
+	/**
+	 * QRErrorCorrectionLevel convert
+	 * @param qrEccLevel
+	 * @return
+	 */
+	public Optional<QRCode.QRErrorCorrectionLevel> toQRErrorCorrectionLevel(QrEccLevel qrEccLevel){
+		if(qrEccLevel == null){
+			Optional.empty();
+		}
+		switch (qrEccLevel) {
+			case ECC_L:
+				return Optional.of(QRCode.QRErrorCorrectionLevel.QR_ECLEVEL_L);
+			case ECC_M:
+				return Optional.of(QRCode.QRErrorCorrectionLevel.QR_ECLEVEL_M_Default);
+			case ECC_Q:
+				return Optional.of(QRCode.QRErrorCorrectionLevel.QR_ECLEVEL_Q);
+			case ECC_H:
+				return Optional.of(QRCode.QRErrorCorrectionLevel.QR_ECLEVEL_H);
+			default:
+				return Optional.empty();
+		}
+	}
+
 }

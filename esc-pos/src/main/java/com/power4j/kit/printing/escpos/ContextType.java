@@ -22,7 +22,15 @@ public enum ContextType {
 	/**
 	 * QRCode
 	 */
-	QR_CODE("qrc");
+	QR_CODE("qrc"),
+	/**
+	 * 走纸命令
+	 */
+	CMD_FEED("feed"),
+	/**
+	 * 切纸命令
+	 */
+	CMD_CUT("cut");
 
 	private final String value;
 
