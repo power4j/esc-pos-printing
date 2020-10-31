@@ -12,7 +12,9 @@ import java.io.Serializable;
  */
 @Data
 public class Opt implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
-	private Alignment align;
+	private Alignment align = Alignment.LEFT;
+
 }

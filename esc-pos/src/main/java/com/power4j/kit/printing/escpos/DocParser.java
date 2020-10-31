@@ -11,10 +11,12 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class DocParser {
+
 	private final static ObjectMapper mapper = new ObjectMapper();
 
 	@SneakyThrows
-	public Doc parseFromJson(String json){
-		return mapper.readValue(json,Doc.class);
+	public Doc parseFromJson(String json) {
+		return mapper.readValue(json, Doc.class);
 	}
+
 }
