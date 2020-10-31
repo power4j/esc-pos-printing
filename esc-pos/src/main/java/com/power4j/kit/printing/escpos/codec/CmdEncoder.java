@@ -29,6 +29,7 @@ import java.util.Map;
  * @since 1.0
  */
 public class CmdEncoder {
+
 	@Getter
 	@Setter
 	private Charset defaultCharset = Charset.forName("GB2312");
@@ -42,7 +43,7 @@ public class CmdEncoder {
 	public static String encodeHex(Doc doc) throws IOException {
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		CmdEncoder encoder = new CmdEncoder();
-		encoder.write(doc,byteArrayOutputStream);
+		encoder.write(doc, byteArrayOutputStream);
 		byte[] data = byteArrayOutputStream.toByteArray();
 		return HexUtil.encodeHexStr(data);
 	}
@@ -50,45 +51,46 @@ public class CmdEncoder {
 	public void write(Doc doc, OutputStream stream) throws IOException {
 		EscPos escPos = new EscPos(stream);
 		Style globalStyle = getStyle(doc.getOpt(), null);
-		if(globalStyle != null){
+		if (globalStyle != null) {
 			escPos.setStyle(globalStyle);
 		}
 		String charsetName = doc.getCharsetName();
-		if(charsetName == null || charsetName.isEmpty()) {
+		if (charsetName == null || charsetName.isEmpty()) {
 			charsetName = defaultCharset.name();
 		}
 		escPos.setCharsetName(charsetName);
-		for(Line line : doc.getLines()) {
-			handleLine(escPos,line,stream);
+		for (Line line : doc.getLines()) {
+			handleLine(escPos, line, stream);
 		}
 	}
 
 	private void handleLine(EscPos escPos, Line line, OutputStream stream) throws IOException {
 		final ContextType type = line.getType();
-		switch (type){
-			case TEXT:
-				Style textStyle = getStyle(line.getOpt(), null);
-				if(textStyle != null){
-					escPos.writeLF(textStyle,line.getData());
-				} else {
-					escPos.writeLF(line.getData());
-				}
-				break;
-			case BIT_IMAGE:
-				break;
-			case QR_CODE:
-				escPos.write(getQRCode(line.getOpt()),line.getData());
-				break;
-			case CMD_FEED:
-				Style feedStyle = getStyle(line.getOpt(), null);
-				escPos.feed(feedStyle,Feed.parse(line.getData()).getLine());
-				break;
-			case CMD_CUT:
-				Cut cut = Cut.parse(line.getData());
-				escPos.cut(Converter.toCutMode(cut));
-				break;
-			default:
-				throw new IllegalArgumentException("Unkonwn ContextType :" + type.name());
+		switch (type) {
+		case TEXT:
+			Style textStyle = getStyle(line.getOpt(), null);
+			if (textStyle != null) {
+				escPos.writeLF(textStyle, line.getData());
+			}
+			else {
+				escPos.writeLF(line.getData());
+			}
+			break;
+		case BIT_IMAGE:
+			break;
+		case QR_CODE:
+			escPos.write(getQRCode(line.getOpt()), line.getData());
+			break;
+		case CMD_FEED:
+			Style feedStyle = getStyle(line.getOpt(), null);
+			escPos.feed(feedStyle, Feed.parse(line.getData()).getLine());
+			break;
+		case CMD_CUT:
+			Cut cut = Cut.parse(line.getData());
+			escPos.cut(Converter.toCutMode(cut));
+			break;
+		default:
+			throw new IllegalArgumentException("Unkonwn ContextType :" + type.name());
 		}
 	}
 
@@ -97,8 +99,8 @@ public class CmdEncoder {
 	 * @param textOpt
 	 * @return
 	 */
-	public Style getStyle(TextOpt textOpt,Style defaultStyle) {
-		if(textOpt == null){
+	public Style getStyle(TextOpt textOpt, Style defaultStyle) {
+		if (textOpt == null) {
 			return defaultStyle;
 		}
 
@@ -120,16 +122,17 @@ public class CmdEncoder {
 
 		// @formatter:on
 
-		Style style =  new Style();
+		Style style = new Style();
 		style.setBold(bold);
 		style.setUnderline(underline);
 		style.setColorMode(colorMode);
 		style.setFontName(fontName);
-		style.setFontSize(fontWidth,fontHeight);
+		style.setFontSize(fontWidth, fontHeight);
 		style.setJustification(justification);
-		if(textOpt.getLineSpacing() == null) {
+		if (textOpt.getLineSpacing() == null) {
 			style.resetLineSpacing();
-		} else {
+		}
+		else {
 			style.setLineSpacing(textOpt.getLineSpacing());
 		}
 		return style;
@@ -141,7 +144,7 @@ public class CmdEncoder {
 	 * @return
 	 */
 	public Style getStyle(Map<String, String> map, Style defaultStyle) {
-		return getStyle(OptUtils.getTextOpt(map),defaultStyle);
+		return getStyle(OptUtils.getTextOpt(map), defaultStyle);
 	}
 
 	/**
@@ -149,13 +152,16 @@ public class CmdEncoder {
 	 * @param map
 	 * @return
 	 */
-	public QRCode getQRCode( Map<String, String> map){
+	public QRCode getQRCode(Map<String, String> map) {
 		QrCodeOpt qrCodeOpt = OptUtils.getQrCodeOpt(map);
 		QRCode qrCode = new QRCode();
 		qrCode.setModel(Converter.toQRModel(qrCodeOpt.getModel()).orElse(QRCode.QRModel._1_Default));
-		qrCode.setErrorCorrectionLevel(Converter.toQRErrorCorrectionLevel(qrCodeOpt.getLevel()).orElse(QRCode.QRErrorCorrectionLevel.QR_ECLEVEL_M_Default));
-		qrCode.setJustification(Converter.toJustification(qrCodeOpt.getAlign()).orElse(EscPosConst.Justification.Left_Default));
+		qrCode.setErrorCorrectionLevel(Converter.toQRErrorCorrectionLevel(qrCodeOpt.getLevel())
+				.orElse(QRCode.QRErrorCorrectionLevel.QR_ECLEVEL_M_Default));
+		qrCode.setJustification(
+				Converter.toJustification(qrCodeOpt.getAlign()).orElse(EscPosConst.Justification.Left_Default));
 		qrCode.setSize(qrCodeOpt.getSize());
 		return qrCode;
 	}
+
 }

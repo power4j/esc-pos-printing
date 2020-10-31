@@ -6,7 +6,9 @@ package com.power4j.kit.printing.escpos.cmd;
  * @since 1.0
  */
 public class Cut {
+
 	public static final int MODE_PART = 0;
+
 	public static final int MODE_FULL = 1;
 
 	/**
@@ -14,10 +16,10 @@ public class Cut {
 	 */
 	private int mode;
 
-	public static Cut parse(String mode){
+	public static Cut parse(String mode) {
 		int val = Integer.parseInt(mode);
-		if(val != MODE_PART && val != MODE_FULL){
-			throw new IllegalArgumentException("Invalid mode value : "+mode);
+		if (val != MODE_PART && val != MODE_FULL) {
+			throw new IllegalArgumentException("Invalid mode value : " + mode);
 		}
 		return new Cut(val);
 	}
@@ -26,7 +28,7 @@ public class Cut {
 		this.mode = mode;
 	}
 
-	public Cut(){
+	public Cut() {
 		this(MODE_PART);
 	}
 
@@ -37,7 +39,9 @@ public class Cut {
 	public void setMode(int mode) {
 		this.mode = mode;
 	}
-	public boolean isFullMode(){
+
+	public boolean isFullMode() {
 		return mode == MODE_FULL;
 	}
+
 }

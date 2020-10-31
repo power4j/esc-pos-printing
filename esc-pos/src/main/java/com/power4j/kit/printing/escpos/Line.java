@@ -1,9 +1,5 @@
 package com.power4j.kit.printing.escpos;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 import java.util.Map;
 
@@ -13,15 +9,19 @@ import java.util.Map;
  * @since 1.0
  */
 public class Line implements Serializable {
+
 	private static final long serialVersionUID = 1L;
+
 	/**
 	 * 类型
 	 */
 	private ContextType type;
+
 	/**
 	 * 内容
 	 */
 	private String data;
+
 	/**
 	 * 选项
 	 */
@@ -31,7 +31,7 @@ public class Line implements Serializable {
 	}
 
 	public Line(ContextType type, String data) {
-		this(type,data,null);
+		this(type, data, null);
 	}
 
 	public Line(ContextType type, String data, Map<String, String> opt) {
@@ -63,4 +63,5 @@ public class Line implements Serializable {
 	public void setOpt(Map<String, String> opt) {
 		this.opt = opt;
 	}
+
 }

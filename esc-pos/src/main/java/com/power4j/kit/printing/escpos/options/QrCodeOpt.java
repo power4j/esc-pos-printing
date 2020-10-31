@@ -11,9 +11,13 @@ import lombok.Data;
  */
 @Data
 public class QrCodeOpt extends Opt {
+
 	private static final long serialVersionUID = 1L;
 
 	private QrModel model = QrModel.MODEL_48;
+
 	private QrEccLevel level = QrEccLevel.ECC_M;
+
 	private Integer size = 3;
+
 }

@@ -15,16 +15,24 @@ import java.io.Serializable;
  */
 @Data
 public class TextOpt extends Opt implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	private Color color = Color.BG_WHITE;
+
 	private Boolean bold = Boolean.FALSE;
+
 	private FontType fontType = FontType.FONT_A;
+
 	private FontSize fontWidth = FontSize.SIZE_1;
+
 	private FontSize fontHeight = FontSize.SIZE_1;
+
 	private Underline underline = Underline.NONE;
+
 	/**
 	 * null means use default value
 	 */
 	private Integer lineSpacing;
+
 }

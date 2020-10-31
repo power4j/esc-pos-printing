@@ -4,18 +4,21 @@ import java.util.Map;
 
 /**
  * 走纸
+ *
  * @author CJ (power4j@outlook.com)
  * @date 2020/10/31
  * @since 1.0
  */
 public class Feed {
+
 	private int line;
+
 	/**
 	 * 选项
 	 */
 	private Map<String, String> opt;
 
-	public static Feed parse(String line){
+	public static Feed parse(String line) {
 		int nLine = Integer.parseInt(line);
 		return new Feed(nLine);
 	}
@@ -39,4 +42,5 @@ public class Feed {
 	public void setOpt(Map<String, String> opt) {
 		this.opt = opt;
 	}
+
 }

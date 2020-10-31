@@ -34,8 +34,7 @@ public enum Color {
 
 	/**
 	 * 解析
-	 *
-	 * @param value    被解析的数据,可以是null
+	 * @param value 被解析的数据,可以是null
 	 * @param defValue 默认值
 	 * @return 如果解析失败返回默认值
 	 */
@@ -53,7 +52,6 @@ public enum Color {
 
 	/**
 	 * 解析
-	 *
 	 * @param value 被解析的数据
 	 * @return 如果解析失败返回 null
 	 */
@@ -64,8 +62,7 @@ public enum Color {
 
 	/**
 	 * 解析
-	 *
-	 * @param value   被解析的数据
+	 * @param value 被解析的数据
 	 * @param thrower 异常抛出器
 	 * @return 如果解析失败抛出异常
 	 */
@@ -79,7 +76,6 @@ public enum Color {
 
 	/**
 	 * 解析
-	 *
 	 * @param value 被解析的数据
 	 * @return 如果解析失败抛出 IllegalArgumentException
 	 */
