@@ -24,8 +24,8 @@
   <name>${project.artifactId}</name>
   <packaging>pom</packaging>
 
-  <url>https://github.com/power4j/esc-pos</url>
-  <description>Java library for ESC/POS printer commands.</description>
+  <url>https://github.com/power4j/esc-pos-printing</url>
+  <description>Java library for ESC/POS printing.</description>
 
   <licenses>
     <license>
@@ -41,9 +41,9 @@
   </organization>
 
   <scm>
-    <url>https://github.com/power4j/esc-pos</url>
-    <connection>scm:git:git://github.com/power4j/esc-pos.git</connection>
-    <developerConnection>scm:git:https://github.com/power4j/esc-pos.git</developerConnection>
+    <url>https://github.com/power4j/esc-pos-printing</url>
+    <connection>scm:git:git://github.com/power4j/esc-pos-printing.git</connection>
+    <developerConnection>scm:git:https://github.com/power4j/esc-pos-printing.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
