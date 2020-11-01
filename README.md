@@ -54,8 +54,8 @@ String hexCmd = CmdEncoder.encodeHex(doc);
 
 ```json
 {
-  "type": "GB2312",
-  "data": "",
+  "type": "text",
+  "data": "hello",
   "opt": {}
 }
 ```
@@ -77,7 +77,7 @@ String hexCmd = CmdEncoder.encodeHex(doc);
 - 走纸:  数字，表示走纸的行数
 - 切纸: 0 表示部分切纸,1表示全切
 
-`opt`  打印选项，用于设置打印格式等,不同的类型，支持不同的选项，见后面打印格式说明。
+`opt`  打印选项，用于设置打印格式等,不同的类型，支持不同的选项，见后面打印格式说明。需要设置格式时传入，否则使用默认格式。
 
 
 
