@@ -83,6 +83,9 @@ public class OptUtils {
 	 */
 	public QrCodeOpt getQrCodeOpt(Map<String, String> map) {
 		QrCodeOpt qrCodeOpt = new QrCodeOpt();
+		if (map == null) {
+			return qrCodeOpt;
+		}
 
 		// @formatter:off
 
