@@ -1,3 +1,6 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e96301a18c0a4e0d934ece462c67e81c)](https://www.codacy.com/gh/power4j/esc-pos-printing/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=power4j/esc-pos-printing&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/power4j/esc-pos-printing.svg?branch=master)](https://travis-ci.org/power4j/esc-pos-printing)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.power4j.kit/esc-pos-printing/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.power4j.kit/esc-pos-printing)
 # ESC/POS 凭条打印
 
 已经实现的功能
