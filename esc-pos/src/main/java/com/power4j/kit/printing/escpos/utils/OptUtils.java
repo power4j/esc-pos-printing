@@ -5,26 +5,13 @@ import com.power4j.kit.printing.escpos.options.QrCodeOpt;
 import com.power4j.kit.printing.escpos.options.TextOpt;
 import com.power4j.kit.printing.escpos.qrcode.QrEccLevel;
 import com.power4j.kit.printing.escpos.qrcode.QrModel;
-import com.power4j.kit.printing.escpos.style.Alignment;
-import com.power4j.kit.printing.escpos.style.Color;
-import com.power4j.kit.printing.escpos.style.FontSize;
-import com.power4j.kit.printing.escpos.style.FontType;
-import com.power4j.kit.printing.escpos.style.Underline;
+import com.power4j.kit.printing.escpos.style.*;
 import lombok.experimental.UtilityClass;
 
 import java.util.Map;
+import java.util.Optional;
 
-import static com.power4j.kit.printing.escpos.constants.Keys.KEY_ALIGN;
-import static com.power4j.kit.printing.escpos.constants.Keys.KEY_BOLD;
-import static com.power4j.kit.printing.escpos.constants.Keys.KEY_COLOR;
-import static com.power4j.kit.printing.escpos.constants.Keys.KEY_FONT_HEIGHT;
-import static com.power4j.kit.printing.escpos.constants.Keys.KEY_FONT_TYPE;
-import static com.power4j.kit.printing.escpos.constants.Keys.KEY_FONT_WIDTH;
-import static com.power4j.kit.printing.escpos.constants.Keys.KEY_LINE_SPACING;
-import static com.power4j.kit.printing.escpos.constants.Keys.KEY_QR_ECC_LEVEL;
-import static com.power4j.kit.printing.escpos.constants.Keys.KEY_QR_MODEL;
-import static com.power4j.kit.printing.escpos.constants.Keys.KEY_QR_SIZE;
-import static com.power4j.kit.printing.escpos.constants.Keys.KEY_UNDERLINE;
+import static com.power4j.kit.printing.escpos.constants.Keys.*;
 
 /**
  * @author CJ (power4j@outlook.com)
@@ -41,9 +28,9 @@ public class OptUtils {
 	 */
 	public Opt getOpt(Map<String, String> map) {
 		Opt opt = new Opt();
-		if (map != null && map.containsKey(KEY_ALIGN)) {
-			Alignment alignment = Alignment.parseOrDefault(map.get(KEY_ALIGN), Alignment.LEFT);
-			opt.setAlign(alignment);
+		if (map != null) {
+			Optional.ofNullable(map.get(KEY_ALIGN))
+					.ifPresent(val -> opt.setAlign(Alignment.parseOrDefault(val, Alignment.LEFT)));
 		}
 		return opt;
 	}
@@ -58,37 +45,35 @@ public class OptUtils {
 		if (map == null) {
 			return opt;
 		}
-		if (map.containsKey(KEY_ALIGN)) {
-			Alignment alignment = Alignment.parseOrDefault(map.get(KEY_ALIGN), Alignment.LEFT);
-			opt.setAlign(alignment);
-		}
-		if (map.containsKey(KEY_COLOR)) {
-			Color color = Color.parseOrDefault(map.get(KEY_COLOR), Color.BG_WHITE);
-			opt.setColor(color);
-		}
-		if (map.containsKey(KEY_BOLD)) {
-			opt.setBold(Boolean.valueOf(map.get(KEY_BOLD)));
-		}
-		if (map.containsKey(KEY_FONT_TYPE)) {
-			FontType fontType = FontType.parseOrDefault(map.get(KEY_FONT_TYPE), FontType.FONT_A);
-			opt.setFontType(fontType);
-		}
-		if (map.containsKey(KEY_FONT_WIDTH)) {
-			FontSize fontSize = FontSize.parseOrDefault(map.get(KEY_FONT_WIDTH), FontSize.SIZE_1);
-			opt.setFontWidth(fontSize);
-		}
-		if (map.containsKey(KEY_FONT_HEIGHT)) {
-			FontSize fontSize = FontSize.parseOrDefault(map.get(KEY_FONT_HEIGHT), FontSize.SIZE_1);
-			opt.setFontHeight(fontSize);
-		}
-		if (map.containsKey(KEY_UNDERLINE)) {
-			Underline underline = Underline.parseOrDefault(map.get(KEY_UNDERLINE), Underline.NONE);
-			opt.setUnderline(underline);
-		}
-		if (map.containsKey(KEY_LINE_SPACING)) {
-			opt.setLineSpacing(Integer.parseInt(map.get(KEY_LINE_SPACING)));
-		}
+
+		// @formatter:off
+
+		Optional.ofNullable(map.get(KEY_ALIGN))
+				.ifPresent(val -> opt.setAlign(Alignment.parseOrDefault(val, Alignment.LEFT)));
+
+		Optional.ofNullable(map.get(KEY_COLOR))
+				.ifPresent(val -> opt.setColor(Color.parseOrDefault(val, Color.BG_WHITE)));
+
+		Optional.ofNullable(map.get(KEY_BOLD))
+				.ifPresent(val -> opt.setBold(Boolean.valueOf(val)));
+
+		Optional.ofNullable(map.get(KEY_FONT_TYPE))
+				.ifPresent(val -> opt.setFontType(FontType.parseOrDefault(val, FontType.FONT_A)));
+
+		Optional.ofNullable(map.get(KEY_FONT_WIDTH))
+				.ifPresent(val -> opt.setFontWidth(FontSize.parseOrDefault(val, FontSize.SIZE_1)));
+
+		Optional.ofNullable(map.get(KEY_FONT_HEIGHT))
+				.ifPresent(val -> opt.setFontWidth(FontSize.parseOrDefault(val, FontSize.SIZE_1)));
+
+		Optional.ofNullable(map.get(KEY_UNDERLINE))
+				.ifPresent(val -> opt.setUnderline(Underline.parseOrDefault(val, Underline.NONE)));
+
+		Optional.ofNullable(map.get(KEY_LINE_SPACING))
+				.ifPresent(val -> opt.setLineSpacing(Integer.parseInt(val)));
 		return opt;
+
+		// @formatter:on
 	}
 
 	/**
@@ -98,22 +83,23 @@ public class OptUtils {
 	 */
 	public QrCodeOpt getQrCodeOpt(Map<String, String> map) {
 		QrCodeOpt qrCodeOpt = new QrCodeOpt();
-		if (map != null && map.containsKey(KEY_ALIGN)) {
-			Alignment alignment = Alignment.parseOrDefault(map.get(KEY_ALIGN), Alignment.LEFT);
-			qrCodeOpt.setAlign(alignment);
-		}
-		if (map.containsKey(KEY_QR_MODEL)) {
-			QrModel qrModel = QrModel.parseOrDefault(map.get(KEY_QR_MODEL), QrModel.MODEL_48);
-			qrCodeOpt.setModel(qrModel);
-		}
-		if (map.containsKey(KEY_QR_ECC_LEVEL)) {
-			QrEccLevel qrEccLevel = QrEccLevel.parseOrDefault(map.get(KEY_QR_ECC_LEVEL), QrEccLevel.ECC_M);
-			qrCodeOpt.setLevel(qrEccLevel);
-		}
-		if (map.containsKey(KEY_QR_SIZE)) {
-			qrCodeOpt.setSize(Integer.parseInt(map.get(KEY_QR_SIZE)));
-		}
+
+		// @formatter:off
+
+		Optional.ofNullable(map.get(KEY_ALIGN))
+				.ifPresent(val -> qrCodeOpt.setAlign(Alignment.parseOrDefault(val, Alignment.LEFT)));
+
+		Optional.ofNullable(map.get(KEY_QR_MODEL))
+				.ifPresent(val -> qrCodeOpt.setModel(QrModel.parseOrDefault(val, QrModel.MODEL_48)));
+
+		Optional.ofNullable(map.get(KEY_QR_ECC_LEVEL))
+				.ifPresent(val -> qrCodeOpt.setLevel(QrEccLevel.parseOrDefault(val, QrEccLevel.ECC_M)));
+
+		Optional.ofNullable(map.get(KEY_QR_SIZE))
+				.ifPresent(val -> qrCodeOpt.setSize(Integer.parseInt(val)));
 		return qrCodeOpt;
+
+		// @formatter:on
 	}
 
 }
