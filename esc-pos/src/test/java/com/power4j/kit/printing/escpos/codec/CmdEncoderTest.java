@@ -111,7 +111,7 @@ public class CmdEncoderTest {
 
 		doc.getLines().add(new Line(ContextType.TEXT, "凭  条", titleTextOpt));
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "1"));
-		doc.getLines().add(new Line(ContextType.TEXT, "凭条编号     : 20200101000123", bodyOpt));
+		doc.getLines().add(new Line(ContextType.TEXT, "凭条编号 : 20200101000123", bodyOpt));
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "1"));
 		doc.getLines().add(new Line(ContextType.TEXT, "申请人 : 20200101000123", bodyOpt));
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "1"));
@@ -141,10 +141,15 @@ public class CmdEncoderTest {
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "10"));
 
 		doc.getLines().add(new Line(ContextType.CMD_CUT, "0"));
+		System.out.println("doc: encodeHex");
 		System.out.println(CmdEncoder.encodeHex(doc));
+
+		System.out.println("doc: encodeBase64");
+		System.out.println(CmdEncoder.encodeBase64(doc));
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = objectMapper.writeValueAsString(doc);
+		System.out.println("doc: json");
 		System.out.println(json);
 	}
 

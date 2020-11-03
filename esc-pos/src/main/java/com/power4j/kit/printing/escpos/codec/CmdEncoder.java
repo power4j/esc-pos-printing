@@ -1,5 +1,6 @@
 package com.power4j.kit.printing.escpos.codec;
 
+import cn.hutool.core.codec.Base64Encoder;
 import cn.hutool.core.util.HexUtil;
 import com.github.anastaciocintra.escpos.EscPos;
 import com.github.anastaciocintra.escpos.EscPosConst;
@@ -32,7 +33,17 @@ public class CmdEncoder {
 
 	@Getter
 	@Setter
-	private Charset defaultCharset = Charset.forName("GB2312");
+	private Charset defaultCharset = Charset.defaultCharset();
+
+	/**
+	 * encode to hex
+	 * @param doc
+	 * @return
+	 * @throws IOException
+	 */
+	public static String encodeBase64(Doc doc) throws IOException {
+		return Base64Encoder.encode(encode(doc));
+	}
 
 	/**
 	 * encode to hex
@@ -41,11 +52,20 @@ public class CmdEncoder {
 	 * @throws IOException
 	 */
 	public static String encodeHex(Doc doc) throws IOException {
+		return HexUtil.encodeHexStr(encode(doc));
+	}
+
+	/**
+	 * encode
+	 * @param doc
+	 * @return
+	 * @throws IOException
+	 */
+	public static byte[] encode(Doc doc) throws IOException {
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		CmdEncoder encoder = new CmdEncoder();
 		encoder.write(doc, byteArrayOutputStream);
-		byte[] data = byteArrayOutputStream.toByteArray();
-		return HexUtil.encodeHexStr(data);
+		return byteArrayOutputStream.toByteArray();
 	}
 
 	public void write(Doc doc, OutputStream stream) throws IOException {
@@ -60,11 +80,11 @@ public class CmdEncoder {
 		}
 		escPos.setCharsetName(charsetName);
 		for (Line line : doc.getLines()) {
-			handleLine(escPos, line, stream);
+			handleLine(escPos, line);
 		}
 	}
 
-	private void handleLine(EscPos escPos, Line line, OutputStream stream) throws IOException {
+	private void handleLine(EscPos escPos, Line line) throws IOException {
 		final ContextType type = line.getType();
 		switch (type) {
 		case TEXT:
@@ -77,7 +97,7 @@ public class CmdEncoder {
 			}
 			break;
 		case BIT_IMAGE:
-			break;
+			throw new UnsupportedOperationException("Not support");
 		case QR_CODE:
 			escPos.write(getQRCode(line.getOpt()), line.getData());
 			break;
