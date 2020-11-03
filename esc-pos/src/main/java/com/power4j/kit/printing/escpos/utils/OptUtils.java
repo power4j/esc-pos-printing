@@ -11,7 +11,17 @@ import lombok.experimental.UtilityClass;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.power4j.kit.printing.escpos.constants.Keys.*;
+import static com.power4j.kit.printing.escpos.constants.Keys.KEY_ALIGN;
+import static com.power4j.kit.printing.escpos.constants.Keys.KEY_BOLD;
+import static com.power4j.kit.printing.escpos.constants.Keys.KEY_COLOR;
+import static com.power4j.kit.printing.escpos.constants.Keys.KEY_FONT_HEIGHT;
+import static com.power4j.kit.printing.escpos.constants.Keys.KEY_FONT_TYPE;
+import static com.power4j.kit.printing.escpos.constants.Keys.KEY_FONT_WIDTH;
+import static com.power4j.kit.printing.escpos.constants.Keys.KEY_LINE_SPACING;
+import static com.power4j.kit.printing.escpos.constants.Keys.KEY_QR_ECC_LEVEL;
+import static com.power4j.kit.printing.escpos.constants.Keys.KEY_QR_MODEL;
+import static com.power4j.kit.printing.escpos.constants.Keys.KEY_QR_SIZE;
+import static com.power4j.kit.printing.escpos.constants.Keys.KEY_UNDERLINE;
 
 /**
  * @author CJ (power4j@outlook.com)
