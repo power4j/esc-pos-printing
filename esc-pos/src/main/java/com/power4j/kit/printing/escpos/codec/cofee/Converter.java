@@ -7,7 +7,11 @@ import com.github.anastaciocintra.escpos.barcode.QRCode;
 import com.power4j.kit.printing.escpos.cmd.Cut;
 import com.power4j.kit.printing.escpos.qrcode.QrEccLevel;
 import com.power4j.kit.printing.escpos.qrcode.QrModel;
-import com.power4j.kit.printing.escpos.style.*;
+import com.power4j.kit.printing.escpos.style.Alignment;
+import com.power4j.kit.printing.escpos.style.Color;
+import com.power4j.kit.printing.escpos.style.FontSize;
+import com.power4j.kit.printing.escpos.style.FontType;
+import com.power4j.kit.printing.escpos.style.Underline;
 import lombok.experimental.UtilityClass;
 
 import java.util.Optional;
