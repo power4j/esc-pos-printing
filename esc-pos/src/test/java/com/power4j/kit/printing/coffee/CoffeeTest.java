@@ -1,11 +1,17 @@
 package com.power4j.kit.printing.coffee;
 
+import cn.hutool.core.codec.Base64Decoder;
 import cn.hutool.core.util.HexUtil;
 import com.github.anastaciocintra.escpos.EscPos;
 import com.github.anastaciocintra.escpos.EscPosConst;
 import com.github.anastaciocintra.escpos.Style;
+import com.github.anastaciocintra.escpos.image.*;
+import com.power4j.kit.printing.escpos.codec.SampleData;
 import lombok.SneakyThrows;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
 
@@ -26,6 +32,8 @@ public class CoffeeTest {
 		simpleTest();
 		System.out.println("simpleTest2");
 		simpleTest2();
+		System.out.println("bmpTest");
+		bmpTest();
 	}
 
 	@SneakyThrows
@@ -125,4 +133,74 @@ public class CoffeeTest {
 		System.out.println(hex);
 	}
 
+	@SneakyThrows
+	public static void bmpTest() {
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		EscPos escpos = new EscPos(byteArrayOutputStream);
+		/*
+		 * to print one image we need to have:
+		 * - one BufferedImage.
+		 * - one bitonal algorithm to define what and how print on image.
+		 * - one image wrapper to determine the command set to be used on
+		 * image printing and how to customize it.
+		 */
+
+		// specify the algorithm that defines what and how "print or not print" on each coordinate of the BufferedImage.
+		// in this case, threshold 127
+		Bitonal algorithm = new BitonalThreshold(127);
+		// creating the EscPosImage, need buffered image and algorithm.
+
+		BufferedImage githubBufferedImage = ImageIO.read(new ByteArrayInputStream(Base64Decoder.decode(SampleData.imagePower4j)));
+		EscPosImage escposImage = new EscPosImage(new CoffeeImageImpl(githubBufferedImage), algorithm);
+
+		// this wrapper uses esc/pos sequence: "ESC '*'"
+		BitImageWrapper imageWrapper = new BitImageWrapper();
+
+
+		escpos.writeLF(new Style().setFontSize(Style.FontSize._2, Style.FontSize._2)
+				,"BitImageWrapper");
+
+		escpos.writeLF("default size");
+		escpos.write(imageWrapper, escposImage);
+
+		escpos.feed(5);
+		escpos.writeLF("Double Height");
+		imageWrapper.setMode(BitImageWrapper.BitImageMode._8DotDoubleDensity);
+		escpos.write(imageWrapper, escposImage);
+
+		escpos.feed(5);
+		escpos.writeLF("Double Width");
+		imageWrapper.setMode(BitImageWrapper.BitImageMode._24DotSingleDensity);
+		escpos.write(imageWrapper, escposImage);
+
+		escpos.feed(5);
+		escpos.writeLF("Quadruple size");
+		imageWrapper.setMode(BitImageWrapper.BitImageMode._8DotSingleDensity);
+		escpos.write(imageWrapper, escposImage);
+
+		escpos.feed(5);
+		escpos.writeLF("print on Left");
+		imageWrapper.setMode(BitImageWrapper.BitImageMode._24DotDoubleDensity_Default);
+		imageWrapper.setJustification(EscPosConst.Justification.Left_Default);
+		escpos.write(imageWrapper, escposImage);
+		escpos.feed(5);
+		escpos.writeLF("print on Right");
+		imageWrapper.setJustification(EscPosConst.Justification.Right);
+		escpos.write(imageWrapper, escposImage);
+		escpos.feed(5);
+		escpos.writeLF("print on Center");
+		imageWrapper.setJustification(EscPosConst.Justification.Center);
+		escpos.write(imageWrapper, escposImage);
+
+		escpos.feed(5);
+		escpos.cut(EscPos.CutMode.FULL);
+
+
+		escpos.close();
+
+		byte[] data = byteArrayOutputStream.toByteArray();
+		String hex = HexUtil.encodeHexStr(data);
+		System.out.println(hex);
+
+	}
 }

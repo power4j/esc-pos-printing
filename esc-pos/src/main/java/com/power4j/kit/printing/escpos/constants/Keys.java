@@ -29,4 +29,6 @@ public interface Keys {
 
 	public static final String KEY_QR_SIZE = "size";
 
+	public static final String KEY_BMP_MODEL = "model";
+
 }

@@ -1,4 +1,4 @@
-package com.power4j.kit.printing.escpos;
+package com.power4j.kit.printing.escpos.bmp;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -6,37 +6,35 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.function.Function;
 
 /**
+ * 位图在打印机缓存中的存储模式
  * @author CJ (power4j@outlook.com)
- * @date 2020/10/29
+ * @date 2020/11/5
  * @since 1.0
  */
-public enum ContextType {
-
+public enum BmpModel {
 	/**
-	 * Text
+	 * 8-dot single-density
 	 */
-	TEXT("text"),
+	M0("m0",0),
 	/**
-	 * Bit image
+	 * 8-dot double-density
 	 */
-	BMP("bmp"),
+	M1("m1",1),
 	/**
-	 * QRCode
+	 * 24-dot single-density
 	 */
-	QR_CODE("qrc"),
+	M32("m32",32),
 	/**
-	 * 走纸命令
+	 * 24-dot double-density
 	 */
-	CMD_FEED("feed"),
-	/**
-	 * 切纸命令
-	 */
-	CMD_CUT("cut");
+	M33("m33",33);
 
 	private final String value;
+	private final int modelValue;
 
-	ContextType(String value) {
+	BmpModel(String value,int modelValue) {
 		this.value = value;
+		this.modelValue = modelValue;
 	}
 
 	@JsonValue
@@ -44,17 +42,22 @@ public enum ContextType {
 		return value;
 	}
 
+	public int getModelValue() {
+		return modelValue;
+	}
+
 	/**
 	 * 解析
-	 * @param value 被解析的数据,可以是null
+	 *
+	 * @param value    被解析的数据,可以是null
 	 * @param defValue 默认值
 	 * @return 如果解析失败返回默认值
 	 */
-	public static ContextType parseOrDefault(final String value, final ContextType defValue) {
+	public static BmpModel parseOrDefault(final String value, final BmpModel defValue) {
 		if (value == null) {
 			return defValue;
 		}
-		for (ContextType o : ContextType.values()) {
+		for (BmpModel o : BmpModel.values()) {
 			if (o.getValue().equals(value)) {
 				return o;
 			}
@@ -64,22 +67,24 @@ public enum ContextType {
 
 	/**
 	 * 解析
+	 *
 	 * @param value 被解析的数据
 	 * @return 如果解析失败返回 null
 	 */
 	@JsonCreator
-	public static ContextType parseOrNull(final String value) {
+	public static BmpModel parseOrNull(final String value) {
 		return parseOrDefault(value, null);
 	}
 
 	/**
 	 * 解析
-	 * @param value 被解析的数据
+	 *
+	 * @param value   被解析的数据
 	 * @param thrower 异常抛出器
 	 * @return 如果解析失败抛出异常
 	 */
-	public static ContextType parseOrThrow(final String value, Function<String, RuntimeException> thrower) {
-		ContextType o = parseOrDefault(value, null);
+	public static BmpModel parseOrThrow(final String value, Function<String, RuntimeException> thrower) {
+		BmpModel o = parseOrDefault(value, null);
 		if (o == null) {
 			throw thrower.apply(value);
 		}
@@ -88,10 +93,11 @@ public enum ContextType {
 
 	/**
 	 * 解析
+	 *
 	 * @param value 被解析的数据
 	 * @return 如果解析失败抛出 IllegalArgumentException
 	 */
-	public static ContextType parse(final String value) throws IllegalArgumentException {
+	public static BmpModel parse(final String value) throws IllegalArgumentException {
 		return parseOrThrow(value, (v) -> new IllegalArgumentException("Invalid value : " + v));
 	}
 

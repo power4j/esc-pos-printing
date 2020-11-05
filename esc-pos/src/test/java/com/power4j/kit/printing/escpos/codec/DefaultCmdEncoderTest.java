@@ -1,21 +1,23 @@
 package com.power4j.kit.printing.escpos.codec;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.power4j.kit.printing.escpos.ContextType;
 import com.power4j.kit.printing.escpos.Doc;
+import com.power4j.kit.printing.escpos.DocProcessor;
 import com.power4j.kit.printing.escpos.Line;
+import com.power4j.kit.printing.escpos.bmp.BmpModel;
 import com.power4j.kit.printing.escpos.constants.Keys;
 import com.power4j.kit.printing.escpos.style.Alignment;
 import com.power4j.kit.printing.escpos.style.FontSize;
 import com.power4j.kit.printing.escpos.style.Underline;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CmdEncoderTest {
+public class DefaultCmdEncoderTest {
 
 	private static final Map<String, String> centerAlign = new HashMap<>();
 
@@ -27,7 +29,7 @@ public class CmdEncoderTest {
 	}
 
 	@Test
-	public void testWrite() throws IOException {
+	public void testWrite() {
 		Doc doc = new Doc();
 		doc.setLines(new ArrayList<>());
 
@@ -42,11 +44,11 @@ public class CmdEncoderTest {
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "10", centerAlign));
 		doc.getLines().add(new Line(ContextType.CMD_CUT, "0"));
 
-		System.out.println(CmdEncoder.encodeHex(doc));
+		System.out.println(DocProcessor.getCmdEncoder().encodeHex(doc));
 	}
 
 	@Test
-	public void testCenterText() throws IOException {
+	public void testCenterText() {
 		Doc doc = new Doc();
 		doc.setLines(new ArrayList<>());
 		Map<String, String> titleTextOpt = new HashMap<>();
@@ -54,21 +56,21 @@ public class CmdEncoderTest {
 		doc.getLines().add(new Line(ContextType.TEXT, "this-is-a-test-msg", null));
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "10", centerAlign));
 		doc.getLines().add(new Line(ContextType.CMD_CUT, "0"));
-		System.out.println(CmdEncoder.encodeHex(doc));
+		System.out.println(DocProcessor.getCmdEncoder().encodeHex(doc));
 	}
 
 	@Test
-	public void testRightText() throws IOException {
+	public void testRightText() {
 		Doc doc = new Doc();
 		doc.setLines(new ArrayList<>());
 		doc.getLines().add(new Line(ContextType.TEXT, "this-is-a-test-msg", rightAlign));
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "10"));
 		doc.getLines().add(new Line(ContextType.CMD_CUT, "0"));
-		System.out.println(CmdEncoder.encodeHex(doc));
+		System.out.println(DocProcessor.getCmdEncoder().encodeHex(doc));
 	}
 
 	@Test
-	public void testStyles() throws IOException {
+	public void testStyles() {
 		Doc doc = new Doc();
 		doc.setCharsetName("GB2312");
 		doc.setLines(new ArrayList<>());
@@ -92,11 +94,11 @@ public class CmdEncoderTest {
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "8"));
 
 		doc.getLines().add(new Line(ContextType.CMD_CUT, "0"));
-		System.out.println(CmdEncoder.encodeHex(doc));
+		System.out.println(DocProcessor.getCmdEncoder().encodeHex(doc));
 	}
 
 	@Test
-	public void testBiz() throws IOException {
+	public void testBiz() throws JsonProcessingException {
 		Doc doc = new Doc();
 		doc.setCharsetName("GB2312");
 		doc.setLines(new ArrayList<>());
@@ -142,10 +144,10 @@ public class CmdEncoderTest {
 
 		doc.getLines().add(new Line(ContextType.CMD_CUT, "0"));
 		System.out.println("doc: encodeHex");
-		System.out.println(CmdEncoder.encodeHex(doc));
+		System.out.println(DocProcessor.getCmdEncoder().encodeHex(doc));
 
 		System.out.println("doc: encodeBase64");
-		System.out.println(CmdEncoder.encodeBase64(doc));
+		System.out.println(DocProcessor.getCmdEncoder().encodeBase64(doc));
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = objectMapper.writeValueAsString(doc);
@@ -153,4 +155,53 @@ public class CmdEncoderTest {
 		System.out.println(json);
 	}
 
+	@Test
+	public void testBmp() {
+		String testImg = SampleData.imageGitHub;
+		
+		Doc doc = new Doc();
+		doc.setCharsetName("GB2312");
+		doc.setLines(new ArrayList<>());
+		Map<String, String> titleTextOpt = new HashMap<>();
+		titleTextOpt.put(Keys.KEY_ALIGN, Alignment.CENTER.getValue());
+		titleTextOpt.put(Keys.KEY_BOLD, "true");
+
+		Map<String, String> bmpOpt1 = new HashMap<>();
+		bmpOpt1.put(Keys.KEY_ALIGN, Alignment.CENTER.getValue());
+		bmpOpt1.put(Keys.KEY_BMP_MODEL, BmpModel.M0.getValue());
+		doc.getLines().add(new Line(ContextType.TEXT, "8-dot single-density",titleTextOpt));
+		doc.getLines().add(new Line(ContextType.CMD_FEED, "1"));
+		doc.getLines().add(new Line(ContextType.BMP, testImg,bmpOpt1));
+		doc.getLines().add(new Line(ContextType.CMD_FEED, "5"));
+
+
+		Map<String, String> bmpOpt2 = new HashMap<>();
+		bmpOpt2.put(Keys.KEY_ALIGN, Alignment.CENTER.getValue());
+		bmpOpt2.put(Keys.KEY_BMP_MODEL, BmpModel.M1.getValue());
+		doc.getLines().add(new Line(ContextType.TEXT, "8-dot double-density",titleTextOpt));
+		doc.getLines().add(new Line(ContextType.CMD_FEED, "1"));
+		doc.getLines().add(new Line(ContextType.BMP, testImg,bmpOpt2));
+		doc.getLines().add(new Line(ContextType.CMD_FEED, "2"));
+
+		Map<String, String> bmpOpt3 = new HashMap<>();
+		bmpOpt3.put(Keys.KEY_ALIGN, Alignment.CENTER.getValue());
+		bmpOpt3.put(Keys.KEY_BMP_MODEL, BmpModel.M32.getValue());
+		doc.getLines().add(new Line(ContextType.TEXT, "24-dot single-density",titleTextOpt));
+		doc.getLines().add(new Line(ContextType.CMD_FEED, "1"));
+		doc.getLines().add(new Line(ContextType.BMP, testImg,bmpOpt3));
+		doc.getLines().add(new Line(ContextType.CMD_FEED, "2"));
+
+		Map<String, String> bmpOpt4 = new HashMap<>();
+		bmpOpt4.put(Keys.KEY_ALIGN, Alignment.CENTER.getValue());
+		bmpOpt4.put(Keys.KEY_BMP_MODEL, BmpModel.M33.getValue());
+		doc.getLines().add(new Line(ContextType.TEXT, "24-dot double-density",titleTextOpt));
+		doc.getLines().add(new Line(ContextType.CMD_FEED, "1"));
+		doc.getLines().add(new Line(ContextType.BMP, testImg,bmpOpt4));
+		doc.getLines().add(new Line(ContextType.CMD_FEED, "5"));
+
+		doc.getLines().add(new Line(ContextType.CMD_CUT, "0"));
+
+		System.out.println(DocProcessor.getCmdEncoder().encodeHex(doc));
+
+	}
 }

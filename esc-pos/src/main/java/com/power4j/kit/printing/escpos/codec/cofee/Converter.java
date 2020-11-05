@@ -4,14 +4,12 @@ import com.github.anastaciocintra.escpos.EscPos;
 import com.github.anastaciocintra.escpos.EscPosConst;
 import com.github.anastaciocintra.escpos.Style;
 import com.github.anastaciocintra.escpos.barcode.QRCode;
+import com.github.anastaciocintra.escpos.image.BitImageWrapper;
+import com.power4j.kit.printing.escpos.bmp.BmpModel;
 import com.power4j.kit.printing.escpos.cmd.Cut;
 import com.power4j.kit.printing.escpos.qrcode.QrEccLevel;
 import com.power4j.kit.printing.escpos.qrcode.QrModel;
-import com.power4j.kit.printing.escpos.style.Alignment;
-import com.power4j.kit.printing.escpos.style.Color;
-import com.power4j.kit.printing.escpos.style.FontSize;
-import com.power4j.kit.printing.escpos.style.FontType;
-import com.power4j.kit.printing.escpos.style.Underline;
+import com.power4j.kit.printing.escpos.style.*;
 import lombok.experimental.UtilityClass;
 
 import java.util.Optional;
@@ -185,6 +183,29 @@ public class Converter {
 			return Optional.of(QRCode.QRErrorCorrectionLevel.QR_ECLEVEL_H);
 		default:
 			return Optional.empty();
+		}
+	}
+
+	/**
+	 * BitImageMode convert
+	 * @param bmpModel
+	 * @return
+	 */
+	public Optional<BitImageWrapper.BitImageMode> toBitImageMode(BmpModel bmpModel) {
+		if (bmpModel == null) {
+			Optional.empty();
+		}
+		switch (bmpModel) {
+			case M0:
+				return Optional.of(BitImageWrapper.BitImageMode._8DotSingleDensity);
+			case M1:
+				return Optional.of(BitImageWrapper.BitImageMode._8DotDoubleDensity);
+			case M32:
+				return Optional.of(BitImageWrapper.BitImageMode._24DotSingleDensity);
+			case M33:
+				return Optional.of(BitImageWrapper.BitImageMode._24DotDoubleDensity_Default);
+			default:
+				return Optional.empty();
 		}
 	}
 

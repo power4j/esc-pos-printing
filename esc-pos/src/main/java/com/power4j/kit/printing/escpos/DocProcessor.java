@@ -1,6 +1,8 @@
 package com.power4j.kit.printing.escpos;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.power4j.kit.printing.escpos.codec.CmdEncoder;
+import com.power4j.kit.printing.escpos.codec.DefaultCmdEncoder;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 
@@ -10,7 +12,7 @@ import lombok.experimental.UtilityClass;
  * @since 1.0
  */
 @UtilityClass
-public class DocParser {
+public class DocProcessor {
 
 	private final static ObjectMapper mapper = new ObjectMapper();
 
@@ -19,4 +21,7 @@ public class DocParser {
 		return mapper.readValue(json, Doc.class);
 	}
 
+	public CmdEncoder getCmdEncoder(){
+		return new DefaultCmdEncoder();
+	}
 }
