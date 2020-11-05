@@ -3,7 +3,13 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.power4j.kit/esc-pos-printing/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.power4j.kit/esc-pos-printing)
 # ESC/POS 凭条打印
 
+> github : https://github.com/power4j/esc-pos-printing
+> gitee:  https://gitee.com/power4j/esc-pos-printing
+
+
+
 已经实现的功能
+
 - `ESC/POS` 指令编码
 
 ## 使用方法
@@ -21,8 +27,8 @@ maven 坐标
 ```java
 // json是事先定义好的打印模版
 Doc doc = DocParser.parseFromJson(jsonStr);
-// hexCmd 为打印指令，16进制格式，一般厂商会提供测试工具，粘贴进去就能打印
-String hexCmd = CmdEncoder.encodeHex(doc);
+// hexCmd 为打印指令，16进制格式，一般厂商会提供测试工具，粘贴进去就能打印，也可以通过网络或者蓝牙传输打印指令
+String hexCmd = DocProcessor.getCmdEncoder().encodeHex(doc);
 ```
 
 
@@ -329,6 +335,8 @@ String hexCmd = CmdEncoder.encodeHex(doc);
   ]
 }
 ```
+
+
 
 
 ## 参考资料
