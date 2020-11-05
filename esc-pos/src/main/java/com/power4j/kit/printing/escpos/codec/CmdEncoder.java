@@ -7,6 +7,7 @@ import com.power4j.kit.printing.escpos.exceptions.EscPosException;
 
 /**
  * 指令编码器
+ *
  * @author CJ (power4j@outlook.com)
  * @date 2020/11/5
  * @since 1.0
@@ -40,4 +41,5 @@ public interface CmdEncoder {
 	default String encodeHex(Doc doc) {
 		return HexUtil.encodeHexStr(encode(doc));
 	}
+
 }

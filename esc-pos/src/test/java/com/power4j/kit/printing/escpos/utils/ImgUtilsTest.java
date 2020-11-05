@@ -12,7 +12,8 @@ public class ImgUtilsTest {
 	@Test
 	public void toBase64() throws IOException {
 		BufferedImage image = ImgUtils.read(getClass().getClassLoader().getResource("images/github45.png"));
-		String imgStr = ImgUtils.toBase64(image,"png");
+		String imgStr = ImgUtils.toBase64(image, "png");
 		System.out.println(imgStr);
 	}
+
 }

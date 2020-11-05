@@ -47,8 +47,9 @@ public class DefaultCmdEncoder implements CmdEncoder {
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		try {
 			write(doc, byteArrayOutputStream);
-		} catch (IOException e) {
-			throw new EscPosException(e.getMessage(),e);
+		}
+		catch (IOException e) {
+			throw new EscPosException(e.getMessage(), e);
 		}
 		return byteArrayOutputStream.toByteArray();
 	}
@@ -186,8 +187,8 @@ public class DefaultCmdEncoder implements CmdEncoder {
 		BitImageWrapper bitImageWrapper = new BitImageWrapper();
 		bitImageWrapper.setMode(Converter.toBitImageMode(bmpOpt.getModel())
 				.orElse(BitImageWrapper.BitImageMode._24DotDoubleDensity_Default));
-		bitImageWrapper.setJustification(Converter.toJustification(bmpOpt.getAlign())
-				.orElse(EscPosConst.Justification.Left_Default));
+		bitImageWrapper.setJustification(
+				Converter.toJustification(bmpOpt.getAlign()).orElse(EscPosConst.Justification.Left_Default));
 		return bitImageWrapper;
 	}
 
@@ -199,11 +200,12 @@ public class DefaultCmdEncoder implements CmdEncoder {
 	 */
 	public EscPosImage getEscPosImageFromBase64(String base64) throws IOException {
 		BufferedImage bufferedImage;
-		try(ByteArrayInputStream bis = new ByteArrayInputStream(Base64Decoder.decode(base64))){
+		try (ByteArrayInputStream bis = new ByteArrayInputStream(Base64Decoder.decode(base64))) {
 			bufferedImage = ImageIO.read(bis);
 		}
 		Bitonal algorithm = new BitonalThreshold(127);
-		EscPosImage escPosImage =  new EscPosImage(new CoffeeImageImpl(bufferedImage), algorithm);
+		EscPosImage escPosImage = new EscPosImage(new CoffeeImageImpl(bufferedImage), algorithm);
 		return escPosImage;
 	}
+
 }

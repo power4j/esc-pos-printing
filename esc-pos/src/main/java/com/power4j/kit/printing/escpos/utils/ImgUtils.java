@@ -33,9 +33,10 @@ public class ImgUtils {
 	 * @param format image format type,e.g. png
 	 * @return
 	 */
-	public String toBase64(BufferedImage image,String format) throws IOException {
+	public String toBase64(BufferedImage image, String format) throws IOException {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		ImageIO.write(image, format, bos);
 		return Base64Encoder.encode(bos.toByteArray());
 	}
+
 }

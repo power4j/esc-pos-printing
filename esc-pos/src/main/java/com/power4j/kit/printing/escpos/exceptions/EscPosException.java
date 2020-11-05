@@ -5,7 +5,8 @@ package com.power4j.kit.printing.escpos.exceptions;
  * @date 2020/11/5
  * @since 1.0
  */
-public class EscPosException extends RuntimeException{
+public class EscPosException extends RuntimeException {
+
 	public EscPosException(String message) {
 		super(message);
 	}
@@ -17,4 +18,5 @@ public class EscPosException extends RuntimeException{
 	public EscPosException(Throwable cause) {
 		super(cause);
 	}
+
 }

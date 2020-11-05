@@ -158,7 +158,7 @@ public class DefaultCmdEncoderTest {
 	@Test
 	public void testBmp() {
 		String testImg = SampleData.imageGitHub;
-		
+
 		Doc doc = new Doc();
 		doc.setCharsetName("GB2312");
 		doc.setLines(new ArrayList<>());
@@ -169,34 +169,33 @@ public class DefaultCmdEncoderTest {
 		Map<String, String> bmpOpt1 = new HashMap<>();
 		bmpOpt1.put(Keys.KEY_ALIGN, Alignment.CENTER.getValue());
 		bmpOpt1.put(Keys.KEY_BMP_MODEL, BmpModel.M0.getValue());
-		doc.getLines().add(new Line(ContextType.TEXT, "8-dot single-density",titleTextOpt));
+		doc.getLines().add(new Line(ContextType.TEXT, "8-dot single-density", titleTextOpt));
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "1"));
-		doc.getLines().add(new Line(ContextType.BMP, testImg,bmpOpt1));
+		doc.getLines().add(new Line(ContextType.BMP, testImg, bmpOpt1));
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "5"));
-
 
 		Map<String, String> bmpOpt2 = new HashMap<>();
 		bmpOpt2.put(Keys.KEY_ALIGN, Alignment.CENTER.getValue());
 		bmpOpt2.put(Keys.KEY_BMP_MODEL, BmpModel.M1.getValue());
-		doc.getLines().add(new Line(ContextType.TEXT, "8-dot double-density",titleTextOpt));
+		doc.getLines().add(new Line(ContextType.TEXT, "8-dot double-density", titleTextOpt));
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "1"));
-		doc.getLines().add(new Line(ContextType.BMP, testImg,bmpOpt2));
+		doc.getLines().add(new Line(ContextType.BMP, testImg, bmpOpt2));
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "2"));
 
 		Map<String, String> bmpOpt3 = new HashMap<>();
 		bmpOpt3.put(Keys.KEY_ALIGN, Alignment.CENTER.getValue());
 		bmpOpt3.put(Keys.KEY_BMP_MODEL, BmpModel.M32.getValue());
-		doc.getLines().add(new Line(ContextType.TEXT, "24-dot single-density",titleTextOpt));
+		doc.getLines().add(new Line(ContextType.TEXT, "24-dot single-density", titleTextOpt));
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "1"));
-		doc.getLines().add(new Line(ContextType.BMP, testImg,bmpOpt3));
+		doc.getLines().add(new Line(ContextType.BMP, testImg, bmpOpt3));
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "2"));
 
 		Map<String, String> bmpOpt4 = new HashMap<>();
 		bmpOpt4.put(Keys.KEY_ALIGN, Alignment.CENTER.getValue());
 		bmpOpt4.put(Keys.KEY_BMP_MODEL, BmpModel.M33.getValue());
-		doc.getLines().add(new Line(ContextType.TEXT, "24-dot double-density",titleTextOpt));
+		doc.getLines().add(new Line(ContextType.TEXT, "24-dot double-density", titleTextOpt));
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "1"));
-		doc.getLines().add(new Line(ContextType.BMP, testImg,bmpOpt4));
+		doc.getLines().add(new Line(ContextType.BMP, testImg, bmpOpt4));
 		doc.getLines().add(new Line(ContextType.CMD_FEED, "5"));
 
 		doc.getLines().add(new Line(ContextType.CMD_CUT, "0"));
@@ -204,4 +203,5 @@ public class DefaultCmdEncoderTest {
 		System.out.println(DocProcessor.getCmdEncoder().encodeHex(doc));
 
 	}
+
 }

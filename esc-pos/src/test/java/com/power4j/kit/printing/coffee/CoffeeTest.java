@@ -138,27 +138,25 @@ public class CoffeeTest {
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		EscPos escpos = new EscPos(byteArrayOutputStream);
 		/*
-		 * to print one image we need to have:
-		 * - one BufferedImage.
-		 * - one bitonal algorithm to define what and how print on image.
-		 * - one image wrapper to determine the command set to be used on
-		 * image printing and how to customize it.
+		 * to print one image we need to have: - one BufferedImage. - one bitonal
+		 * algorithm to define what and how print on image. - one image wrapper to
+		 * determine the command set to be used on image printing and how to customize it.
 		 */
 
-		// specify the algorithm that defines what and how "print or not print" on each coordinate of the BufferedImage.
+		// specify the algorithm that defines what and how "print or not print" on each
+		// coordinate of the BufferedImage.
 		// in this case, threshold 127
 		Bitonal algorithm = new BitonalThreshold(127);
 		// creating the EscPosImage, need buffered image and algorithm.
 
-		BufferedImage githubBufferedImage = ImageIO.read(new ByteArrayInputStream(Base64Decoder.decode(SampleData.imagePower4j)));
+		BufferedImage githubBufferedImage = ImageIO
+				.read(new ByteArrayInputStream(Base64Decoder.decode(SampleData.imagePower4j)));
 		EscPosImage escposImage = new EscPosImage(new CoffeeImageImpl(githubBufferedImage), algorithm);
 
 		// this wrapper uses esc/pos sequence: "ESC '*'"
 		BitImageWrapper imageWrapper = new BitImageWrapper();
 
-
-		escpos.writeLF(new Style().setFontSize(Style.FontSize._2, Style.FontSize._2)
-				,"BitImageWrapper");
+		escpos.writeLF(new Style().setFontSize(Style.FontSize._2, Style.FontSize._2), "BitImageWrapper");
 
 		escpos.writeLF("default size");
 		escpos.write(imageWrapper, escposImage);
@@ -195,7 +193,6 @@ public class CoffeeTest {
 		escpos.feed(5);
 		escpos.cut(EscPos.CutMode.FULL);
 
-
 		escpos.close();
 
 		byte[] data = byteArrayOutputStream.toByteArray();
@@ -203,4 +200,5 @@ public class CoffeeTest {
 		System.out.println(hex);
 
 	}
+
 }

@@ -21,7 +21,8 @@ public class DocProcessor {
 		return mapper.readValue(json, Doc.class);
 	}
 
-	public CmdEncoder getCmdEncoder(){
+	public CmdEncoder getCmdEncoder() {
 		return new DefaultCmdEncoder();
 	}
+
 }

@@ -9,9 +9,10 @@ import lombok.Data;
  * @since 1.0
  */
 @Data
-public class BmpOpt extends Opt{
+public class BmpOpt extends Opt {
 
 	private static final long serialVersionUID = 1L;
 
 	private BmpModel model = BmpModel.M32;
+
 }

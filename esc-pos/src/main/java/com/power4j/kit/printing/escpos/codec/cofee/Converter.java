@@ -196,16 +196,16 @@ public class Converter {
 			Optional.empty();
 		}
 		switch (bmpModel) {
-			case M0:
-				return Optional.of(BitImageWrapper.BitImageMode._8DotSingleDensity);
-			case M1:
-				return Optional.of(BitImageWrapper.BitImageMode._8DotDoubleDensity);
-			case M32:
-				return Optional.of(BitImageWrapper.BitImageMode._24DotSingleDensity);
-			case M33:
-				return Optional.of(BitImageWrapper.BitImageMode._24DotDoubleDensity_Default);
-			default:
-				return Optional.empty();
+		case M0:
+			return Optional.of(BitImageWrapper.BitImageMode._8DotSingleDensity);
+		case M1:
+			return Optional.of(BitImageWrapper.BitImageMode._8DotDoubleDensity);
+		case M32:
+			return Optional.of(BitImageWrapper.BitImageMode._24DotSingleDensity);
+		case M33:
+			return Optional.of(BitImageWrapper.BitImageMode._24DotDoubleDensity_Default);
+		default:
+			return Optional.empty();
 		}
 	}
 

@@ -107,7 +107,6 @@ public class OptUtils {
 		// @formatter:on
 	}
 
-
 	/**
 	 * extract QrCodeOpt
 	 * @param map
