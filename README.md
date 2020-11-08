@@ -27,7 +27,8 @@ maven 坐标
 ```java
 // json是事先定义好的打印模版
 Doc doc = DocParser.parseFromJson(jsonStr);
-// hexCmd 为打印指令，16进制格式，一般厂商会提供测试工具，粘贴进去就能打印，也可以通过网络或者蓝牙传输打印指令
+// hexCmd 为打印指令，16进制格式，一般厂商会提供测试工具，粘贴进去就能打印
+// 也可以通过网络或者蓝牙传输打印指令
 String hexCmd = DocProcessor.getCmdEncoder().encodeHex(doc);
 ```
 
@@ -196,146 +197,12 @@ String hexCmd = DocProcessor.getCmdEncoder().encodeHex(doc);
 
 ![print-img](docs/img/print-example.png)
 
-对应的模版如下
+![print-img](docs/img/pic-pringting.jpg)
 
-```JSON
-{
-  "charsetName": "GB2312",
-  "opt": null,
-  "lines": [
-    {
-      "type": "text",
-      "data": "凭  条",
-      "opt": {
-        "fontHeight": "3",
-        "fontWidth": "3",
-        "bold": "true",
-        "align": "center"
-      }
-    },
-    {
-      "type": "feed",
-      "data": "1",
-      "opt": null
-    },
-    {
-      "type": "text",
-      "data": "凭条编号     : 20200101000123",
-      "opt": {
-        "align": "left"
-      }
-    },
-    {
-      "type": "feed",
-      "data": "1",
-      "opt": null
-    },
-    {
-      "type": "text",
-      "data": "申请人 : 20200101000123",
-      "opt": {
-        "align": "left"
-      }
-    },
-    {
-      "type": "feed",
-      "data": "1",
-      "opt": null
-    },
-    {
-      "type": "text",
-      "data": "申请人身份证号码 : ******19910719**46",
-      "opt": {
-        "align": "left"
-      }
-    },
-    {
-      "type": "feed",
-      "data": "1",
-      "opt": null
-    },
-    {
-      "type": "text",
-      "data": "申请业务 : XXXXX",
-      "opt": {
-        "align": "left"
-      }
-    },
-    {
-      "type": "feed",
-      "data": "1",
-      "opt": null
-    },
-    {
-      "type": "text",
-      "data": "申请时间 : 2020-10-30",
-      "opt": {
-        "align": "left"
-      }
-    },
-    {
-      "type": "feed",
-      "data": "1",
-      "opt": null
-    },
-    {
-      "type": "text",
-      "data": "所属机构 : XXXXXXX",
-      "opt": {
-        "align": "left"
-      }
-    },
-    {
-      "type": "feed",
-      "data": "2",
-      "opt": null
-    },
-    {
-      "type": "text",
-      "data": "----------------------------------",
-      "opt": {
-        "align": "center"
-      }
-    },
-    {
-      "type": "feed",
-      "data": "1",
-      "opt": null
-    },
-    {
-      "type": "text",
-      "data": "领取凭条后，请耐心在大厅等候通知，如需查询进度，请在终端机上扫描下方二维码",
-      "opt": {
-        "align": "left"
-      }
-    },
-    {
-      "type": "feed",
-      "data": "5",
-      "opt": null
-    },
-    {
-      "type": "qrc",
-      "data": "12345678",
-      "opt": {
-        "size": "10",
-        "align": "center"
-      }
-    },
-    {
-      "type": "feed",
-      "data": "10",
-      "opt": null
-    },
-    {
-      "type": "cut",
-      "data": "0",
-      "opt": null
-    }
-  ]
-}
-```
 
+## 模版文件
+
+[sample-biz.json](esc-pos/src/test/resources/sample-biz.json)
 
 
 
