@@ -17,8 +17,8 @@ cache:
 
 # https://docs.travis-ci.com/user/job-lifecycle/
 script:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -P '!aliyun-repo,!oss-release,travis-ci'
-  - mvn test -DskipTests=false -B -P '!aliyun-repo,!oss-release,travis-ci'
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -P '!oss-release,travis-ci'
+  - mvn test -DskipTests=false -B -P '!oss-release,travis-ci'
 
 # tip: export CODECOV_TOKEN="xxx"
 after_success:
