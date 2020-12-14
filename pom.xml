@@ -240,37 +240,6 @@
 
   <profiles>
     <profile>
-      <id>aliyun-repo</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <pluginRepositories>
-        <pluginRepository>
-          <id>aliyun-plugin</id>
-          <url>https://maven.aliyun.com/repository/public</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </pluginRepository>
-      </pluginRepositories>
-      <repositories>
-        <repository>
-          <id>aliyun</id>
-          <name>aliyun</name>
-          <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </repository>
-      </repositories>
-    </profile>
-    <profile>
       <id>oss-release</id>
       <build>
         <plugins>
