@@ -3,14 +3,31 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.power4j.kit/esc-pos-printing/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.power4j.kit/esc-pos-printing)
 # ESC/POS 凭条打印
 
-> github : https://github.com/power4j/esc-pos-printing
-> gitee:  https://gitee.com/power4j/esc-pos-printing
-
+> - github : https://github.com/power4j/esc-pos-printing 
+>
+> - gitee:  https://gitee.com/power4j/esc-pos-printing
+>
 
 
 已经实现的功能
 
-- `ESC/POS` 指令编码
+- `ESC/POS` 指令编码（支持文本、二维码、图片行打）
+
+打印功能已经在串口热敏打印机上测试，蓝牙、局域网打印因为没有设备，打印效果未知，欢迎有条件的老哥测试。
+
+## 使用场景
+
+- 模版开发
+  1. 开发人员调试好文档格式，生成打印模版
+  2. 打印模版保存到数据库或者打包为服务端资源
+- 指令下发
+  1. 业务操作产生打印需求，后端将业务数据+打印模版进行处理，生成打印指令，下发给前端
+  2. 前端负责打开打印机设备，然后将指令发送到打印机
+
+> 备注
+> - 一般情况下，打印模版并不会频繁改变，因此不需要开发可视化的模版制作功能，由技术人员完成模版调试即可
+>
+> - 如果需要用到的模版较多，可能需要开发模版管理功能，方便上传、更新打印模版。
 
 ## 使用方法
 
@@ -26,13 +43,13 @@ maven 坐标
 
 ```java
 // json是事先定义好的打印模版
-Doc doc = DocParser.parseFromJson(jsonStr);
+Doc doc = DocProcessor.parseFromJson(jsonStr);
 // hexCmd 为打印指令，16进制格式，一般厂商会提供测试工具，粘贴进去就能打印
 // 也可以通过网络或者蓝牙传输打印指令
 String hexCmd = DocProcessor.getCmdEncoder().encodeHex(doc);
 ```
 
-
+例子 : 见 `DefaultCmdEncoderTest`
 
 ## 模版文档结构
 
@@ -211,3 +228,13 @@ String hexCmd = DocProcessor.getCmdEncoder().encodeHex(doc);
 - [ESC/POS Command Reference](https://www.epson-biz.com/modules/ref_escpos/index.php)
 
 
+
+## Special Thanks
+
+- [JetBrains Developer Toolbox](https://www.jetbrains.com/?from=sequence)
+
+
+ ## 联系方式
+ 
+
+ ![weichat](docs/img/wei-chat.png)
