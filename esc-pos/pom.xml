@@ -20,10 +20,11 @@
   <parent>
     <groupId>com.power4j.kit</groupId>
     <artifactId>esc-pos-printing</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>${revision}</version>
   </parent>
 
   <artifactId>esc-pos</artifactId>
+  <name>${project.artifactId}</name>
 
   <dependencies>
     <dependency>
