@@ -61,7 +61,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <spring-javaformat.plugin.version>0.0.28</spring-javaformat.plugin.version>
-    <git.commit.plugin.version>4.0.5</git.commit.plugin.version>
+    <git.commit.plugin.version>4.9.10</git.commit.plugin.version>
     <spring-boot.version>2.5.3</spring-boot.version>
     <hutool.version>5.7.8</hutool.version>
     <escpos-coffee.version>4.1.0</escpos-coffee.version>
