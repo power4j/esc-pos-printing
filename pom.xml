@@ -60,8 +60,8 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <spring-javaformat.plugin.version>0.0.25</spring-javaformat.plugin.version>
-    <git.commit.plugin.version>2.2.5</git.commit.plugin.version>
+    <spring-javaformat.plugin.version>0.0.28</spring-javaformat.plugin.version>
+    <git.commit.plugin.version>4.0.5</git.commit.plugin.version>
     <spring-boot.version>2.3.1.RELEASE</spring-boot.version>
     <hutool.version>5.3.1</hutool.version>
     <escpos-coffee.version>4.0.1</escpos-coffee.version>
