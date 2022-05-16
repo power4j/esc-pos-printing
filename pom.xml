@@ -62,7 +62,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <spring-boot.version>2.5.3</spring-boot.version>
-    <hutool.version>5.7.8</hutool.version>
+    <hutool.version>5.8.1</hutool.version>
     <escpos-coffee.version>4.1.0</escpos-coffee.version>
   </properties>
 
